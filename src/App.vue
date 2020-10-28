@@ -10,13 +10,14 @@
         <li v-for="item in items" v-bind:key="item.name" >
           {{item.name }} : {{item.price}} x {{ item.quantity}}  =  {{item.price * item.quantity | numberWithDelimiter}} 円
         </li>
+      </ul>
         <p>{{items[0].name }} : {{items[0].price}} x {{ items[0].quantity}} </p>
         <p>小計: {{ totalPrice | numberWithDelimiter }}円</p>
         <p>合計(税込): {{ totalPriceWithTax | numberWithDelimiter }}円</p>
         <p v-show="!canBuy">
           {{ 1000 | numberWithDelimiter }} 円以上からご購入いただけます
         </p>
-      </ul>
+        <button v-bind:disabled="!canBuy" v-on:click="doBuy">購入</button>
     </div>
   </div>
   
@@ -51,6 +52,14 @@ export default {
         return '0'
       }
       return value.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+    }
+  },
+  methods:{
+    doBuy: function(){
+      alert(this.totalPriceWithTax + '円のお買い上げ！')
+      this.items.forEach(function (sum ,item){
+        item.quantity = 0 
+      })
     }
   },
   computed:{
