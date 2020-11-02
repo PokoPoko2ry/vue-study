@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <router-link to="/component-study">コンポーネントへ</router-link>
+    <router-view>
+      <h1 slot="header">親から変更</h1>
+    </router-view>
+    <login></login>
     <ul>
       <li v-for="item in items" v-bind:key="item.name" >
         {{item.name}} の個数: <input type="number" v-on:input="item.quantity = $event.target.value " v-bind:value="item.quantity" min="0">
@@ -24,6 +29,8 @@
 </template>
 
 <script>
+import login from "./components/molecules/Login.vue"
+
 export default {
   data(){
     return {
@@ -80,7 +87,9 @@ export default {
         color : this.canBuy ? '' :'red'
       }
     }
-  }
+  },components:{
+    login
+  },
 }
 
   
